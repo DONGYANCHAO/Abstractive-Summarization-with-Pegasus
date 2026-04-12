@@ -1,0 +1,7 @@
+from summarize import summarize_text
+text="""
+Anusthan Singh is a highly versatile Full-Stack Developer and IoT Innovator who has built a significant professional footprint through his work in civic technology and scalable enterprise solutions. Currently a student at KIIT University with a strong academic standing, he has successfully bridged the gap between hardware and software by securing a patent for an IoT-based water leakage detection and management system and publishing research in IEEE Xplore regarding resource efficiency in smart greenhouses. His technical repertoire is extensive, spanning core languages like JavaScript, Python, and C++ to modern web frameworks such as React.js and Node.js. Anusthan is particularly recognized for his contributions to GovTech platforms during his tenure at Stralto Global, where he optimized citizen-government interaction portals and implemented advanced cybersecurity measures like RS512 JWT encryption. Beyond enterprise work, his creative technical output includes projects like Aurora, a locally runnable AI chat model with RAG capabilities, and UnseenAI, a tool designed to navigate AI detection parameters. His consistent activity on GitHub, highlighted by impressive contribution streaks, reflects a developer deeply committed to open-source evolution and the practical application of Machine Learning and IoT in solving real-world infrastructure challenges.
+"""
+result = summarize_text(text)
+print("summary:")
+print(result)
