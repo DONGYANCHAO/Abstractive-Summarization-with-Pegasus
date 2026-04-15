@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  summarizer:
+    build: .
+    volumes:
+      - model_cache:/app/cache
+      - ./.env:/app/.env:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TRANSFORMERS_CACHE=/app/cache
+    tty: true
+    stdin_open: true
+
+  dev:
+    build:
+      context: .
+      target: builder
+    volumes:
+      - .:/app
+      - model_cache:/app/cache
+    environment:
+      - PYTHONUNBUFFERED=1
+    working_dir: /app
+    command: bash -c "pip install -r requirements-dev.txt && bash"
+    tty: true
+    stdin_open: true
+
+volumes:
+  model_cache:
+    driver: local
