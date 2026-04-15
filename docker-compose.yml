@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  summarizer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pegasus-summarizer
+    environment:
+      - MODEL_NAME=google/pegasus-xsum
+      - MAX_LENGTH=60
+      - NUM_BEAMS=5
+    volumes:
+      - model_cache:/app/model_cache
+      - ./input:/app/input:ro
+      - ./output:/app/output
+    command: python main.py
+
+volumes:
+  model_cache:
+    driver: local
