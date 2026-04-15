@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  summarizer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pegasus-summarizer
+    volumes:
+      # Mount local cache directory to persist downloaded models
+      - ./.cache/huggingface:/app/.cache/huggingface
+    environment:
+      - HF_HOME=/app/.cache/huggingface
+      - TRANSFORMERS_CACHE=/app/.cache/transformers
+      - PYTHONUNBUFFERED=1
+    # Keep container running for development
+    # Override default CMD for interactive use
+    stdin_open: true
+    tty: true
+    # Resource limits to prevent excessive memory usage
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
+
+  # Development service with test dependencies
+  summarizer-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: pegasus-summarizer-dev
+    volumes:
+      - ./.cache/huggingface:/app/.cache/huggingface
+      - .:/app
+    environment:
+      - HF_HOME=/app/.cache/huggingface
+      - TRANSFORMERS_CACHE=/app/.cache/transformers
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
