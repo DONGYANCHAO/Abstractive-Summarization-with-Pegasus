@@ -1,6 +1,11 @@
+import os
+from dotenv import load_dotenv
 from transformers import PegasusForConditionalGeneration, PegasusTokenizer
 
-MODEL_NAME = "google/pegasus-xsum"
+load_dotenv()
 
-tokenizer = PegasusTokenizer.from_pretrained(MODEL_NAME)
-model = PegasusForConditionalGeneration.from_pretrained(MODEL_NAME)
+MODEL_NAME = os.getenv("MODEL_NAME", "google/pegasus-xsum")
+CACHE_DIR = os.getenv("MODEL_CACHE_DIR", "./cache")
+
+tokenizer = PegasusTokenizer.from_pretrained(MODEL_NAME, cache_dir=CACHE_DIR)
+model = PegasusForConditionalGeneration.from_pretrained(MODEL_NAME, cache_dir=CACHE_DIR)
